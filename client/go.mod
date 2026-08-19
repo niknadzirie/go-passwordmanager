@@ -1,0 +1,3 @@
+module passwordmanager-client
+
+go 1.26.4

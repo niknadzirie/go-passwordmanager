@@ -1,32 +1,28 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"passwordmanager-server/database"
+	"passwordmanager-server/handlers"
+	"passwordmanager-server/repositories"
+	"passwordmanager-server/services"
 
-	"github.com/glebarez/sqlite"
-	"gorm.io/gorm"
+	"github.com/gin-gonic/gin"
 )
 
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
-
 func main() {
-	ctx := context.Background()
+	// Connect database
+	database.ConnectDatabase()
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
+	// GIN Routing
+	r := gin.Default()
 
-	// Migrate the schema
-	db.AutoMigrate(&Product{})
+	// Register
+	repo := &repositories.UserRepository{}
+	service := &services.UserService{Repo: repo}
+	handler := &handlers.UserHandler{Service: service}
 
-	prod, err := gorm.G[Product](db).Find(ctx)
+	r.POST("/users", handler.CreateUser)
 
-	fmt.Println(prod)
+	r.Run(":8080")
 
 }

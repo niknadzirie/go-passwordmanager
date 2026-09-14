@@ -13,7 +13,7 @@ func InitDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 	// Migrate the schema
-	err = database.AutoMigrate(&models.Product{}, &models.User{})
+	err = database.AutoMigrate(&models.User{}, &models.Credential{})
 	if err != nil {
 		panic("failed to migrate database")
 	}

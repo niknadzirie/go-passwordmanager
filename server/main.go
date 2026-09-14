@@ -21,9 +21,9 @@ func main() {
 	// GIN Router
 	r := gin.Default()
 	// Get all users
-	r.GET("/users")
+	r.GET("/users", handler.GetAllUser)
 	// Get by id
-	r.GET("/users/:id")
+	r.GET("/users/:id", handler.GetUser)
 	// Create and save user to DB
 	r.POST("/users", handler.CreateUser)
 

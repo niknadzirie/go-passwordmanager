@@ -45,6 +45,7 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			handleError(c, http.StatusNotFound, err)
+			return
 		}
 		handleError(c, http.StatusInternalServerError, err)
 		return
@@ -54,10 +55,59 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 
 }
 
-func (h *UserHandler) GetAllUser(c *gin.Context) {
+func (h *UserHandler) GetAllUsers(c *gin.Context) {
 	result, err := h.Service.GetAllUsers()
 	if err != nil {
 		handleError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, result)
+}
+
+func (h *UserHandler) DeleteUser(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		handleError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	err = h.Service.RemoveUser(uint(id))
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			handleError(c, http.StatusNotFound, err)
+			return
+		}
+		handleError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
+}
+
+func (h *UserHandler) UpdateUser(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		handleError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	var input models.UpdateUserDTO
+
+	if err := c.ShouldBindBodyWithJSON(&input); err != nil {
+		handleError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	result, err := h.Service.UpdateUser(uint(id), input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			handleError(c, http.StatusBadRequest, err)
+			return
+		}
+		handleError(c, http.StatusInternalServerError, err)
 		return
 	}
 

@@ -4,9 +4,8 @@ import (
 	"passwordmanager-server/database"
 	"passwordmanager-server/handlers"
 	"passwordmanager-server/repositories"
+	"passwordmanager-server/routes"
 	"passwordmanager-server/services"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -18,14 +17,7 @@ func main() {
 	service := &services.UserService{Repo: repo}
 	handler := &handlers.UserHandler{Service: service}
 
-	// GIN Router
-	r := gin.Default()
-	// Get all users
-	r.GET("/users", handler.GetAllUser)
-	// Get by id
-	r.GET("/users/:id", handler.GetUser)
-	// Create and save user to DB
-	r.POST("/users", handler.CreateUser)
+	r := routes.SetupRouter(handler)
 
 	// Run the application
 	r.Run(":8080")

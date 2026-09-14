@@ -41,3 +41,24 @@ func (r *UserRepository) FindAll() ([]models.User, error) {
 	return users, nil
 
 }
+
+func (r *UserRepository) DeleteById(id uint) error {
+	result := r.Db.Delete(&models.User{}, id)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return gorm.ErrRecordNotFound
+	}
+
+	return nil
+}
+
+func (r *UserRepository) UpdateUser(user *models.User) (*models.User, error) {
+	result := r.Db.Save(user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}

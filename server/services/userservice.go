@@ -55,3 +55,31 @@ func (s *UserService) GetAllUsers() ([]models.GetUserDTO, error) {
 
 	return response, nil
 }
+
+func (s *UserService) RemoveUser(id uint) error {
+	return s.Repo.DeleteById(id)
+}
+
+func (s *UserService) UpdateUser(id uint, dto models.UpdateUserDTO) (*models.GetUserDTO, error) {
+	existingUser, err := s.Repo.FindById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	existingUser.Name = dto.Name
+	existingUser.Email = dto.Email
+
+	updatedUser, err := s.Repo.UpdateUser(existingUser)
+	if err != nil {
+		return nil, err
+	}
+
+	response := &models.GetUserDTO{
+		ID:        updatedUser.ID,
+		Name:      updatedUser.Name,
+		Email:     updatedUser.Email,
+		CreatedAt: updatedUser.CreatedAt,
+	}
+
+	return response, nil
+}

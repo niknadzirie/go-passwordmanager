@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"passwordmanager-server/models"
+	"passwordmanager-server/internal/models"
 
 	"github.com/gin-gonic/gin"
 )

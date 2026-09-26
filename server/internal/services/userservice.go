@@ -1,8 +1,8 @@
 package services
 
 import (
-	"passwordmanager-server/models"
-	"passwordmanager-server/repositories"
+	"passwordmanager-server/internal/models"
+	"passwordmanager-server/internal/repositories"
 )
 
 type UserService struct {

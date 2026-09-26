@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"passwordmanager-server/handlers"
+	"passwordmanager-server/internal/handlers"
 
 	"github.com/gin-gonic/gin"
 )

@@ -463,3 +463,6 @@ FodyWeavers.xsd
 
 #local development
 server/test.db
+
+#CLAUDE
+CLAUDE.md

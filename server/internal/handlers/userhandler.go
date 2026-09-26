@@ -3,8 +3,8 @@ package handlers
 import (
 	"errors"
 	"net/http"
-	"passwordmanager-server/models"
-	"passwordmanager-server/services"
+	"passwordmanager-server/internal/models"
+	"passwordmanager-server/internal/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

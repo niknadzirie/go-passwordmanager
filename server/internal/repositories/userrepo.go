@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"passwordmanager-server/models"
+	"passwordmanager-server/internal/models"
 
 	"gorm.io/gorm"
 )

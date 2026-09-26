@@ -1,11 +1,11 @@
 package main
 
 import (
-	"passwordmanager-server/database"
-	"passwordmanager-server/handlers"
-	"passwordmanager-server/repositories"
-	"passwordmanager-server/routes"
-	"passwordmanager-server/services"
+	"passwordmanager-server/internal/database"
+	"passwordmanager-server/internal/handlers"
+	"passwordmanager-server/internal/repositories"
+	"passwordmanager-server/internal/routes"
+	"passwordmanager-server/internal/services"
 )
 
 func main() {

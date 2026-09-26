@@ -1,7 +1,7 @@
 package database
 
 import (
-	"passwordmanager-server/models"
+	"passwordmanager-server/internal/models"
 
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
@@ -13,7 +13,7 @@ func InitDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 	// Migrate the schema
-	err = database.AutoMigrate(&models.User{}, &models.Credential{})
+	err = database.AutoMigrate(&models.User{})
 	if err != nil {
 		panic("failed to migrate database")
 	}

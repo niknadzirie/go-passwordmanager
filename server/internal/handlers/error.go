@@ -1,3 +1,4 @@
+// Package handlers handle error
 package handlers
 
 import (

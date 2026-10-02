@@ -1,6 +1,8 @@
+// Package main entry point here
 package main
 
 import (
+	"log"
 	"passwordmanager-server/internal/database"
 	"passwordmanager-server/internal/handlers"
 	"passwordmanager-server/internal/repositories"
@@ -20,6 +22,10 @@ func main() {
 	r := routes.SetupRouter(handler)
 
 	// Run the application
-	r.Run(":8080")
+	err := r.Run(":8080")
+
+	if err != nil {
+		log.Fatal("Error...")
+	}
 
 }

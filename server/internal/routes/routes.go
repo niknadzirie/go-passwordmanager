@@ -1,3 +1,4 @@
+// Package routes setup routing
 package routes
 
 import (
@@ -6,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SetupRouter setup gin router
 func SetupRouter(handler *handlers.UserHandler) *gin.Engine {
 	r := gin.Default()
 

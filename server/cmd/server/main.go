@@ -22,9 +22,7 @@ func main() {
 	r := routes.SetupRouter(handler)
 
 	// Run the application
-	err := r.Run(":8080")
-
-	if err != nil {
+	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("server: %v", err)
 	}
 

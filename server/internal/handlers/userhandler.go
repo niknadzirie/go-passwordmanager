@@ -11,10 +11,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// UserHandler struct
 type UserHandler struct {
 	Service *services.UserService
 }
 
+// CreateUser create user
 func (h *UserHandler) CreateUser(c *gin.Context) {
 	var input models.CreateUserDTO
 
@@ -32,6 +34,7 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, result)
 }
 
+// GetUser get user
 func (h *UserHandler) GetUser(c *gin.Context) {
 	idStr := c.Param("id")
 
@@ -41,7 +44,7 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 		return
 	}
 
-	result, err := h.Service.GetUserById(uint(id))
+	result, err := h.Service.GetUserByID(uint(id))
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			handleError(c, http.StatusNotFound, err)
@@ -55,6 +58,7 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 
 }
 
+// GetAllUsers get user
 func (h *UserHandler) GetAllUsers(c *gin.Context) {
 	result, err := h.Service.GetAllUsers()
 	if err != nil {
@@ -65,6 +69,7 @@ func (h *UserHandler) GetAllUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+// DeleteUser delete user
 func (h *UserHandler) DeleteUser(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -86,6 +91,7 @@ func (h *UserHandler) DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
 
+// UpdateUser update user
 func (h *UserHandler) UpdateUser(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)

@@ -1,3 +1,4 @@
+// Package repositories database related
 package repositories
 
 import (
@@ -6,10 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// UserRepository struct
 type UserRepository struct {
 	Db *gorm.DB
 }
 
+// Save to database
 func (r *UserRepository) Save(user *models.User) (*models.User, error) {
 	result := r.Db.Create(user)
 	if result.Error != nil {
@@ -19,7 +22,8 @@ func (r *UserRepository) Save(user *models.User) (*models.User, error) {
 	return user, nil
 }
 
-func (r *UserRepository) FindById(id uint) (*models.User, error) {
+// FindByID find by id
+func (r *UserRepository) FindByID(id uint) (*models.User, error) {
 	var user models.User
 
 	result := r.Db.First(&user, id)
@@ -31,6 +35,7 @@ func (r *UserRepository) FindById(id uint) (*models.User, error) {
 
 }
 
+// FindAll find all
 func (r *UserRepository) FindAll() ([]models.User, error) {
 	var users []models.User
 	result := r.Db.Find(&users)
@@ -42,7 +47,8 @@ func (r *UserRepository) FindAll() ([]models.User, error) {
 
 }
 
-func (r *UserRepository) DeleteById(id uint) error {
+// DeleteByID delete by id
+func (r *UserRepository) DeleteByID(id uint) error {
 	result := r.Db.Delete(&models.User{}, id)
 	if result.Error != nil {
 		return result.Error
@@ -55,6 +61,7 @@ func (r *UserRepository) DeleteById(id uint) error {
 	return nil
 }
 
+// UpdateUser update user
 func (r *UserRepository) UpdateUser(user *models.User) (*models.User, error) {
 	result := r.Db.Save(user)
 	if result.Error != nil {

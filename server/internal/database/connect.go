@@ -1,3 +1,4 @@
+// Package database provides tools for connecting to and interacting with the database.
 package database
 
 import (
@@ -7,6 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// InitDB initializes the database connection pool and runs migrations.
 func InitDB() *gorm.DB {
 	database, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {

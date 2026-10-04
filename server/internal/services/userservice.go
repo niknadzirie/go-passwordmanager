@@ -49,12 +49,6 @@ func (s *UserService) GetAllUsers() ([]models.GetUserDTO, error) {
 	response := make([]models.GetUserDTO, 0)
 
 	for _, user := range users {
-		// dto := models.GetUserDTO{
-		// 	ID:        user.ID,
-		// 	Name:      user.Name,
-		// 	Email:     user.Email,
-		// 	CreatedAt: user.CreatedAt,
-		// }
 		dto := models.GetUserDTO(user)
 		response = append(response, dto)
 	}
@@ -91,3 +85,5 @@ func (s *UserService) UpdateUser(id uint, dto models.UpdateUserDTO) (*models.Get
 
 	return response, nil
 }
+
+func toUserDTO(u)

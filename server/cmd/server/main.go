@@ -25,7 +25,7 @@ func main() {
 	err := r.Run(":8080")
 
 	if err != nil {
-		log.Fatal("Error...")
+		log.Fatalf("server: %v", err)
 	}
 
 }

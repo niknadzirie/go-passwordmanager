@@ -28,12 +28,7 @@ func (s *UserService) GetUserByID(id uint) (*models.GetUserDTO, error) {
 		return nil, err
 	}
 
-	response := &models.GetUserDTO{
-		ID:        savedUser.ID,
-		Name:      savedUser.Name,
-		Email:     savedUser.Email,
-		CreatedAt: savedUser.CreatedAt,
-	}
+	response := toUserDTO(savedUser)
 
 	return response, nil
 
@@ -49,8 +44,8 @@ func (s *UserService) GetAllUsers() ([]models.GetUserDTO, error) {
 	response := make([]models.GetUserDTO, 0)
 
 	for _, user := range users {
-		dto := models.GetUserDTO(user)
-		response = append(response, dto)
+		dto := toUserDTO(&user)
+		response = append(response, *dto)
 	}
 
 	return response, nil
@@ -76,14 +71,17 @@ func (s *UserService) UpdateUser(id uint, dto models.UpdateUserDTO) (*models.Get
 		return nil, err
 	}
 
-	response := &models.GetUserDTO{
-		ID:        updatedUser.ID,
-		Name:      updatedUser.Name,
-		Email:     updatedUser.Email,
-		CreatedAt: updatedUser.CreatedAt,
-	}
+	response := toUserDTO(updatedUser)
 
 	return response, nil
 }
 
-func toUserDTO(u)
+// toUserDTO is private method that use for mapping the data
+func toUserDTO(mapUser *models.User) *models.GetUserDTO {
+	return &models.GetUserDTO{
+		ID:        mapUser.ID,
+		Name:      mapUser.Name,
+		Email:     mapUser.Email,
+		CreatedAt: mapUser.CreatedAt,
+	}
+}
